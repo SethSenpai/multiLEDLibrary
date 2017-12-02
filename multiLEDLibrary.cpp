@@ -19,6 +19,9 @@ mllib::mllib(int pin[], int length) {
 	}
 
 	counter = 0;
+	_tempStore[0] = 255;
+	_tempStore[1] = 127;
+	_tempStore[2] = 0;
 }
 
 
@@ -59,6 +62,53 @@ void mllib::snakeMulti(int speed, bool on) {
 				}
 			}
 			stepCounter();
+		}
+	}
+}
+
+void mllib::snakeFadeMulti(int speed, int step, bool on) {
+	if ((milOld + speed) < millis()) {
+		milOld = millis();
+		if (on == true) {
+			for (int i = 0; i < _length; i++) {
+				int prev;
+				int next;
+				if (counter - 1 < 0) {
+					prev = _length;
+				}
+				else {
+					prev = counter - 1;
+				}
+
+				if (counter + 1 > _length) {
+					next = 0;
+				}
+				else {
+					next = counter + 1;
+				}
+
+				if (i == prev) {
+					_tempStore[0] -= step;
+					analogWrite(_pinArray[prev], _tempStore[0]);
+				}
+				else if (i == next) {
+					_tempStore[2] += step;
+					analogWrite(_pinArray[next], _tempStore[2]);
+				}
+				else if (i == counter) {
+					_tempStore[1] += step;
+					analogWrite(_pinArray[i], _tempStore[1]);
+					if (_tempStore[1] > 255) {
+						stepCounter();
+						_tempStore[0] = 255;
+						_tempStore[1] = _tempStore[2];
+						_tempStore[2] = 0;
+					}
+				}
+				else {
+					digitalWrite(_pinArray[i], LOW);
+				}
+			}
 		}
 	}
 }
