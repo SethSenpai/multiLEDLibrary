@@ -7,16 +7,23 @@
 #define multiLEDLibrary_h
 #include "Arduino.h"
 
-class sllib
+class mllib
 {
 public:
 	//public variables and fucntions
-	sllib(int pin);
-
+	mllib(int pin[] , int length);
+	void snakeMulti(int speed, bool on);
 
 private:
-	int _pinArray[];
+	//private functions
+	void stepCounter();
 
+
+	//global variables
+	unsigned long milOld;
+	int counter;
+	int* _pinArray = 0;
+	int _length;
 };
 
 #endif
