@@ -20,10 +20,12 @@ public:
 	void pingPongFadeMulti(int speed, int step, bool on);
 	void blinkRandomMulti(int speed, bool on);
 	void breathRandomMulti(int speed, bool on);
+	void snakePattern(int speed, bool on, int pattern[], int length);
 
 private:
 	//private functions
 	void stepCounter();
+	void stepPongCounter();
 
 	//global variables
 	unsigned long milOld;

@@ -35,6 +35,22 @@ void mllib::stepCounter() {
 	}
 }
 
+void mllib::stepPongCounter() {
+	bool i;
+	if (counter == _length - 1) {
+		i = false;
+	}
+	if (counter == 0) {
+		i = true;
+	}
+	if (i) {
+		counter++;
+	}
+	else {
+		counter--;
+	}
+}
+
 //simple blink snake pattern
 void mllib::snakeMulti(int speed, bool on) {
 	if ((milOld + speed) < millis()) {
@@ -111,5 +127,41 @@ void mllib::snakeFadeMulti(int speed, int step, bool on) {
 				}
 			}
 		}
+	}
+}
+
+//needs to be checked
+void mllib::pingPongMulti(int speed, bool on) {
+	if ((milOld + speed) < millis()) {
+		milOld = millis();
+		if (on) {
+			for (int i = 0; i < _length; i++) {
+				if (counter == i) {
+					digitalWrite(_pinArray[i], HIGH);
+				}
+				else {
+					digitalWrite(_pinArray[i], LOW);
+				}
+			}
+			stepPongCounter();
+		}
+		else {
+			for (int i = 0; i < _length; i++) {
+				if (counter == i) {
+					digitalWrite(_pinArray[i], LOW);
+				}
+				else {
+					digitalWrite(_pinArray[i], HIGH);
+				}
+			}
+			stepPongCounter();
+		}
+	}
+}
+
+//needs to be checked
+void mllib::blinkRandomMulti(int speed, bool on) {
+	if ((milOld + speed) < millis()) {
+		milOld = millis();
 	}
 }
