@@ -98,6 +98,7 @@ void mllib::snakeFadeMulti(int speed, int step, bool on) {
 				else if (i == counter) {
 					_tempStore[1] += step;
 					analogWrite(_pinArray[i], _tempStore[1]);
+					//tempstore needs to be pulled forward instead of pushed back
 					if (_tempStore[1] > 255) {
 						stepCounter();
 						_tempStore[0] = 255;

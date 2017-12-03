@@ -12,8 +12,14 @@ class mllib
 public:
 	//public variables and fucntions
 	mllib(int pin[] , int length);
+
+	//lighting patterns
 	void snakeMulti(int speed, bool on);
 	void snakeFadeMulti(int speed, int step, bool on);
+	void pingPongMulti(int speed, bool on);
+	void pingPongFadeMulti(int speed, int step, bool on);
+	void blinkRandomMulti(int speed, bool on);
+	void breathRandomMulti(int speed, bool on);
 
 private:
 	//private functions
