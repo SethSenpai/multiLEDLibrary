@@ -33,6 +33,7 @@ private:
 	int* _pinArray = 0;
 	int _length;
 	int _tempStore[3];
+	bool flip;
 };
 
 #endif

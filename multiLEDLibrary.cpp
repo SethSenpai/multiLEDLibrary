@@ -36,14 +36,13 @@ void mllib::stepCounter() {
 }
 
 void mllib::stepPongCounter() {
-	bool i;
 	if (counter == _length - 1) {
-		i = false;
+		flip = false;
 	}
 	if (counter == 0) {
-		i = true;
+		flip = true;
 	}
-	if (i) {
+	if (flip) {
 		counter++;
 	}
 	else {
@@ -117,9 +116,9 @@ void mllib::snakeFadeMulti(int speed, int step, bool on) {
 					//tempstore needs to be pulled forward instead of pushed back
 					if (_tempStore[1] > 255) {
 						stepCounter();
-						_tempStore[0] = 255;
-						_tempStore[1] = _tempStore[2];
-						_tempStore[2] = 0;
+						_tempStore[0] = 0;
+						_tempStore[1] = _tempStore[0];
+						_tempStore[2] = 255;
 					}
 				}
 				else {
@@ -130,7 +129,6 @@ void mllib::snakeFadeMulti(int speed, int step, bool on) {
 	}
 }
 
-//needs to be checked
 void mllib::pingPongMulti(int speed, bool on) {
 	if ((milOld + speed) < millis()) {
 		milOld = millis();
@@ -163,5 +161,26 @@ void mllib::pingPongMulti(int speed, bool on) {
 void mllib::blinkRandomMulti(int speed, bool on) {
 	if ((milOld + speed) < millis()) {
 		milOld = millis();
+		int k = random(0,_length);
+		if(on){
+			for(int i =0; i < _length; i++){
+				if(i == k){
+					digitalWrite(_pinArray[i],HIGH);
+				}
+				else{
+					digitalWrite(_pinArray[i],LOW);
+				}
+			}
+		}
+		else{
+			for(int i =0; i < _length; i++){
+				if(i == k){
+					digitalWrite(_pinArray[i],LOW);
+				}
+				else{
+					digitalWrite(_pinArray[i],HIGH);
+				}
+			}
+		}
 	}
 }
